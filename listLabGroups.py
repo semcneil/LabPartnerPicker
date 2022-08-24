@@ -25,9 +25,33 @@ if __name__ == '__main__':
         nameList = f.readlines()
     
     nameList = [n.strip() for n in nameList]
-    nameCombs = combinations(nameList, 2)
+    nameCombsIter = combinations(nameList, 2)  # get the combinations 
+    nameCombs = [namePair for namePair in nameCombsIter]  # convert to list for operating on
     for nameComb in nameCombs:
         print(nameComb)
+    
+    # try to build lab partners for each class
+    # https://flexiple.com/python/check-if-list-is-empty-python/
+    labList = []
+    usedNames = []
+    labNum = 1  # lab count number
+    while nameCombs[:]:  # while nameCombs isn't empty
+        # start the lab list with the first element still in the list
+        if not labList:  # labList is empty
+            usedNames.extend(nameCombs[0])
+            labList.append(nameCombs.pop(0))
+        # Add tuples that don't contain the names already in the list
+        for names in nameCombs:
+            # check to see if any names in names are in usedNames
+            # if not, add names to labList and remove from nameCombs
+            if not any(n in usedNames for n in names):
+                usedNames.extend(names)
+                labList.append(names)
+                nameCombs.remove(names)
+        print(f'Lab {labNum}:\n {labList}')
+        labNum += labNum
+        labList = []
+        usedNames = []
     pdb.set_trace()
 
     end_time = datetime.datetime.now()    # save the script end time
