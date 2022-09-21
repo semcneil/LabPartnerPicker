@@ -24,23 +24,21 @@ def evenGroups(nameList):
         print("Error: Odd number of names")
         #return(-1)
     allGroups = []
-    for ii in range(1,nNames):
-        groups = list()
-        for jj in range(0,nNames):
-            curName = nameList[jj]
-            nextName = nameList[(jj+ii)%nNames] 
-            print(f'{curName}, {nextName}', end='')
-            usedNames = [name for group in groups for name in group]
-            if curName not in usedNames and nextName not in usedNames:
-                groups.append((curName, nextName))    
-                print('*')
-            else:
-                print('')
-        if len(groups) != nNames/2:
-            print(f'incomplete groups: {groups}')
-        print(groups)
-        pdb.set_trace()
-        allGroups.append(groups)
+    nHalf = int(nNames/2)
+    for jj in range(nHalf):
+        nameList = nameList[jj:] + nameList[:jj]
+        firstHalf = nameList[:nHalf]
+        lastHalf = nameList[nHalf:]
+        print(f'{firstHalf}\n{lastHalf}')
+        for ii in range(nHalf):
+            rotList = lastHalf[ii:] + lastHalf[:ii]
+            groups = tuple(zip(firstHalf,rotList))
+            usedCombinations = [set(group) for labGroups in allGroups for group in labGroups]
+            print(any(set(group) in usedCombinations for group in groups),end='')
+            print(f': {groups}')
+            #pdb.set_trace()
+            if not any(set(group) in usedCombinations for group in groups):
+                allGroups.append(groups)
     return(allGroups)
 
 if __name__ == '__main__':
