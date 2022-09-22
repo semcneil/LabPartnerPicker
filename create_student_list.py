@@ -56,6 +56,8 @@ if __name__ == '__main__':
     parser.add_argument('-f','--namefile',
                         help='Name of file containing one name per line',
                         required=True)
+    parser.add_argument('-','--numlabs',
+                        help='Number of labs')
 
     start_time = datetime.datetime.now()  # save the script start time
     args = parser.parse_args()  # parse the arguments from the commandline
