@@ -59,6 +59,24 @@ if __name__ == '__main__':
     print(randNames)
 
     randNames = nameList
+
+    nameCombsIter = combinations(nameList, 2)  # get the combinations 
+    nameCombs = [namePair for namePair in nameCombsIter]  # convert to list for operating on
+
+    nHalf = int(nNames/2)
+    possGroupsIter = combinations(nameCombs, nHalf)
+    possGroups = [group for group in possGroupsIter]
+    print(f'nPossGroups = {len(possGroups)}')
+
+    # trim groups with internal duplicates
+    pass1Groups = []
+    for groups in possGroups:
+        usedNames = [name for group in groups for name in group]
+        if len(set(usedNames)) == len(usedNames):
+            pass1Groups.append(groups)
+    # trim groups with already used pairs
+    pdb.set_trace()
+
     
     # https://www.geeksforgeeks.org/python-ways-to-rotate-a-list/
     if nNames % 2:  # odd number of names
