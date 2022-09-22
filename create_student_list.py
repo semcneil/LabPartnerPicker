@@ -11,7 +11,8 @@
 
 import datetime     # for date/time functions
 import argparse     # This gives better command line argument functionality
-
+from numpy import random  # for permutations
+import pdb
 
 def round_robin(name_list):
     count = len(name_list)
@@ -44,12 +45,17 @@ def main(args):
         name_list = f.readlines()
     
     name_list = [n.strip() for n in name_list]
+    name_list = random.permutation(name_list).tolist()
 
-    print("Lab# - Sitout - Pairings")
     if not args.numlabs:
         for day, pairs in enumerate(round_robin(name_list), 1):
             sitout = set(name_list).difference(*pairs)
-            print(day, sitout, *pairs,)
+            print(f'Lab {day}:')
+            for pair in pairs:
+                print(f'{pair[0]} - {pair[1]}')
+            print(f'Fill-in: {sitout.pop()}')
+            #print(day, sitout, *pairs,)
+            print('\n')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
