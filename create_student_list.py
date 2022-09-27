@@ -53,8 +53,8 @@ def main(args):
             print(f'Lab {day}:')
             for pair in pairs:
                 print(f'{pair[0]} - {pair[1]}')
-            print(f'Fill-in: {sitout.pop()}')
-            #print(day, sitout, *pairs,)
+            if(len(sitout) > 0):
+                print(f'Fill-in: {sitout.pop()}')
             print('\n')
 
 if __name__ == '__main__':
