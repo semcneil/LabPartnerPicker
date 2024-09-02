@@ -50,11 +50,19 @@ def main(args):
     if not args.numlabs:
         for day, pairs in enumerate(round_robin(name_list), 1):
             sitout = set(name_list).difference(*pairs)
+            if(args.html):
+              print('<p>')
             print(f'Lab {day}:')
+            if(args.html):
+              print('<br>')
             for pair in pairs:
                 print(f'{pair[0]} - {pair[1]}')
+                if(args.html):
+                  print('<br>')
             if(len(sitout) > 0):
                 print(f'Fill-in: {sitout.pop()}')
+            if(args.html):
+              print('</p>')
             print('\n')
 
 if __name__ == '__main__':
@@ -62,6 +70,8 @@ if __name__ == '__main__':
     parser.add_argument('-f','--namefile',
                         help='Name of file containing one name per line',
                         required=True)
+    parser.add_argument('-w','--html', action='store_true', default=False,
+                        help='Adds html tags')
     parser.add_argument('-','--numlabs',
                         help='Number of labs')
 
